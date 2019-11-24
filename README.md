@@ -1,27 +1,26 @@
-# TimemanagerApp
+## TimemanagerApp - Time Manager (Exemplo de implemtação utilizando Angular 8)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.0.
+Frontend criado para ser utilizado em conjunto com o backend [Time Manager](https://github.com/guilherme737/timemanager) 
 
-## Development server
+## Sequência de instalação e execução do projeto
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Partimos do entendimento que você já possui as versões mais recentes do NodeJs e NPM
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Instalar Angular CLI
+```sh
+$ npm install -g @angular/cli
+```
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+### Instalar libs
+No diretório do projeto executar o comando 
+```sh
+$ npm install
+```
 
-## Running unit tests
+### Arquivo `environment.ts`
+Na pasta `src/environment` edite o arquivo substituindo o host e/ou porta do seu servidor backend se for necessário. 
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+### Executando o projeto
+Ainda dentro do diretório do projeto execute o comando `ng serve -o`, ao final da compilação será aberto uma nova janela no seu navegador de internet padrão com a aplicação sendo executada a partir do endereço `http://localhost:4200/`. 
