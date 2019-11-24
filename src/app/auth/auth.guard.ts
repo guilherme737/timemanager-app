@@ -28,26 +28,30 @@ export class AuthGuard implements CanActivate {
 
     private canActivateRoute(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
         return this.authService.usuarioLogado$.pipe(
-            map(loggedUser => {
-                const res = this.checkRoute(route, state, loggedUser);
+            map(usuarioLogado => {
+                const res = this.verificarRota(route, state, usuarioLogado);
                 console.log(`can activate route '${state.url}' '${route.url}' ${res}`);
                 return res;
             })
         );
     }
 
-    private checkRoute(route: ActivatedRouteSnapshot, state: RouterStateSnapshot, usuario: Usuario): boolean {
+    private verificarRota(route: ActivatedRouteSnapshot, state: RouterStateSnapshot, usuario: Usuario): boolean {
         if ((!route.data.roles && usuario)
             || (route.data.roles && !usuario)
             || (usuario && route.data.roles && !route.data.roles.includes(usuario.permissao)) || state.url === '/') {
             if (usuario) {
+                /*
                 if (usuario.permissao === Permissao.GERENTE) {
                     this.router.navigate(['/usuario']);
                 } else {
                     this.router.navigate(['/home']);
                 }
+                */
+                return true;
             } else {
                 this.router.navigate(['/login']);
+                return false;
             }
             return false;
         }

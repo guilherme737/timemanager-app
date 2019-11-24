@@ -5,29 +5,23 @@
     <ul class="sidebar-navigation">
         <li class="header">Menu</li>
         <li>
-            <a href="#">
+            <a (click)="navegarPara('/')">
                 <i class="fa fa-home" aria-hidden="true"></i> Homepage
             </a>
         </li>
         <li>
-            <a href="#">
-                <i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard
-            </a>
-        </li>
-        <li class="header">Another Menu</li>
-        <li>
-            <a href="#">
-                <i class="fa fa-users" aria-hidden="true"></i> Friends
+            <a (click)="navegarPara('/usuario')">
+                <i class="fa fa-tachometer" aria-hidden="true"></i> Usuário
             </a>
         </li>
         <li>
-            <a href="#">
-                <i class="fa fa-cog" aria-hidden="true"></i> Settings
+            <a (click)="navegarPara('/ponto')">
+                <i class="fa fa-tachometer" aria-hidden="true"></i> Ponto
             </a>
         </li>
         <li>
-            <a href="#">
-                <i class="fa fa-info-circle" aria-hidden="true"></i> Information
+            <a (click)="logout()">
+                <i class="fa fa-info-circle" aria-hidden="true"></i> Logout
             </a>
         </li>
     </ul>

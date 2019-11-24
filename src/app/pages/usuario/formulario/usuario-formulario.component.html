@@ -1,0 +1,45 @@
+<div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12 mx-auto">
+        <div class="card my-5">
+            <div class="card-body">
+                <h5 class="card-title">Usuários</h5>
+
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+                    <div class="form-row">
+                        <div class="form-group col-md-9">
+                            <label for="inputNome">Nome</label>
+                            <input type="text" class="form-control" id="inputNome" formControlName="nome">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="inputNome">Horas Preferidas de Trabalho</label>
+                            <input type="text" class="form-control" id="inputNome"
+                                formControlName="horasDeTrabalhoPreferidasPorDia">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="inputNome">Permissão</label>
+                            <select class="form-control" formControlName="permissao" placeholder="Selecione">
+                                <option value="" disabled selected>Selecione a Permissão</option>
+                                <option *ngFor="let p of permissoes" [ngValue]="p">{{p}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="inputNome">Login</label>
+                            <input type="text" class="form-control" id="inputLogin" formControlName="login">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="inputNome">Senha</label>
+                            <input type="password" class="form-control" id="inputSenha" formControlName="senha">
+                        </div>
+                        <div class="col-md-12 text-right">
+                            <button type="submit" class="btn btn-primary">Salvar</button>&nbsp;
+                            <button type="button" class="btn btn-primary" (click)="irParaConsulta()">Voltar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

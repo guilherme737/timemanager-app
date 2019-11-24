@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Usuario } from 'src/app/modelo/usuario';
-import { UsuarioComponent } from '../usuario/usuario.component';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-login',
@@ -11,14 +12,21 @@ import { UsuarioComponent } from '../usuario/usuario.component';
 })
 export class LoginComponent implements OnInit {
     form: FormGroup;
-    private formSubmitAttempt: boolean;
+
+    private loadingSubject: BehaviorSubject<boolean>;
+    loading$: Observable<boolean>;
 
     usuario: Usuario;
 
     constructor(
         private fb: FormBuilder,
-        private authService: AuthService
-    ) { }
+        private authService: AuthService,
+        private router: Router
+    ) {
+        this.loadingSubject = new BehaviorSubject<boolean>(false);
+        this.loading$ = this.loadingSubject.asObservable();
+
+    }
 
     ngOnInit() {
         this.usuario = new Usuario();
@@ -28,18 +36,19 @@ export class LoginComponent implements OnInit {
         });
     }
 
-    isFieldInvalid(field: string) {
-        return (
-            (!this.form.get(field).valid && this.form.get(field).touched) ||
-            (this.form.get(field).untouched && this.formSubmitAttempt)
-        );
-    }
-
     onSubmit() {
-        if (this.form.valid) {
-            this.authService.login(this.form.get('login').value, this.form.get('senha').value);
-        }
-        this.formSubmitAttempt = true;
+
+        this.loadingSubject.next(true);
+        this.authService.login(this.form.get('login').value, this.form.get('senha').value)
+            .then(
+                () => {
+                    this.loadingSubject.next(false);
+                    this.router.navigate(['/home']);
+                },
+                error => {
+                    console.log('Authentication failed.');
+                    this.loadingSubject.next(false);
+                });
     }
 
 }

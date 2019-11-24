@@ -1,0 +1,29 @@
+<div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12 mx-auto">
+        <div class="card my-5">
+            <div class="card-body">
+                <h5 class="card-title">Registro de Horas</h5>
+
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label for="inputNome">Data</label>
+                            <input type="text" class="form-control" id="inputNome" formControlName="data">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="inputNome">Horas Trabalhadas</label>
+                            <input type="text" class="form-control" id="inputNome" formControlName="horasTrabalhadas">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-12 text-right">
+                            <button type="submit" class="btn btn-primary">Salvar</button>&nbsp;
+                            <button type="button" class="btn btn-primary" (click)="irParaConsulta()">Voltar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

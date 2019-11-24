@@ -18,13 +18,14 @@ const refreshTokenKey = 'refresh_token';
 })
 export class AuthService {
 
-    /*
-    private loggedIn = new BehaviorSubject<boolean>(true);
-
-    get isLoggedIn() {
-        return this.loggedIn.asObservable();
-    }
-    */
+    private jwtHelper: JwtHelperService;
+    private tokenDeAcessoSubject: BehaviorSubject<string>;
+    tokenDeAcesso$: Observable<string>;
+    private usuarioLogadoSubject: BehaviorSubject<Usuario>;
+    usuarioLogado$: Observable<Usuario>;
+    private logoutSubject: Subject<string>;
+    logout$: Observable<string>;
+    private usuarioLoading = false;
 
     constructor(
         private http: HttpClient,
@@ -40,29 +41,12 @@ export class AuthService {
         this.logoutSubject = new Subject<string>();
         this.logout$ = this.logoutSubject.asObservable();
     }
-    /*
-        login(usuario: Usuario) {
-            if (usuario.userName !== '' && usuario.password !== '') {
-                this.loggedIn.next(true);
-                this.router.navigate(['/']);
-            }
-        }
-    
-        logout() {
-            this.loggedIn.next(false);
-            this.router.navigate(['/login']);
-        }
-    */
-    private jwtHelper: JwtHelperService;
-    private tokenDeAcessoSubject: BehaviorSubject<string>;
-    tokenDeAcesso$: Observable<string>;
-    private usuarioLogadoSubject: BehaviorSubject<Usuario>;
-    usuarioLogado$: Observable<Usuario>;
-    private logoutSubject: Subject<string>;
-    logout$: Observable<string>;
-    private usuarioLoading = false;
 
     private iniciarTokenDeAcessoPipe() {
+
+        let tokenDeAcesso = this.getToken(accessTokenKey);
+        tokenDeAcesso = tokenDeAcesso && !this.jwtHelper.isTokenExpired(tokenDeAcesso) ? tokenDeAcesso : null;
+
         this.tokenDeAcessoSubject = new BehaviorSubject(this.tokenDeAcesso);
         this.tokenDeAcesso$ = this.tokenDeAcessoSubject.asObservable().pipe(
             // filter(token => !!token),
@@ -102,7 +86,7 @@ export class AuthService {
             });
     }
 
-    get loggedUser(): Usuario {
+    get usuarioLogado(): Usuario {
         return this.usuarioLogadoSubject.value;
     }
 
